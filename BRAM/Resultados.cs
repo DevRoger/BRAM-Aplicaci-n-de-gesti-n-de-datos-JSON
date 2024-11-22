@@ -12,21 +12,24 @@ namespace BRAM
             InitializeComponent();
             this.alumnos = alumnos;
 
+            // Mostramos los alumnos en la listBoxAlumnos
             foreach (var alumno in alumnos)
             {
                 listBoxAlumnos.Items.Add(alumno.Nombre);
-
             }
 
             listBoxAlumnos.Items.Add("Media");
-
-
 
             // Configurar el DataGridView
             ConfigurarDataGridView();
         }
 
 
+        /// <summary>
+        /// Método que se utiliza para seleccionar el alumno que el usuario ha escrito en el buscador.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textBoxAlumno_TextChanged(object sender, EventArgs e)
         {
             int indice = listBoxAlumnos.FindString(textBoxAlumno.Text);
@@ -36,6 +39,9 @@ namespace BRAM
             }
         }
 
+        /// <summary>
+        /// Método que se utiliza para establecer las columnas en el dataGridViewPartidas donde se mostrará la información de cada alumno.
+        /// </summary>
         private void ConfigurarDataGridView()
         {
             // Agregar columnas al DataGridView para mostrar la información de las partidas
@@ -46,6 +52,11 @@ namespace BRAM
             dataGridViewPartidas.Columns.Add("Tiempo Total", "Tiempo Total");
         }
 
+        /// <summary>
+        /// Método que se utiliza para mostrar la información del alumno seleccionado en la listBoxAlumnos.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listBoxAlumnos_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Limpiar el DataGridView
@@ -64,12 +75,11 @@ namespace BRAM
                     dataGridViewPartidas.Rows.Add(count, partida.Modo, partida.Fecha, partida.Errores, conversor_tiempo(partida.TiemposAnimales));
                 }
             }
-            else if (indice >= 0) // Media
+            else if (indice >= 0) // Mostrar la media en caso de que se haya seleccionado 'Media' en la listBoxAlumnos
             {
                 dataGridViewPartidas.Rows.Add(1, "MEDIA FÁCIL", DateTime.Now, errores_Totales(alumnos,"easy"), conversor_tiempo(tiempo_Totales(alumnos, "easy")));
                 dataGridViewPartidas.Rows.Add(2, "MEDIA DIFÍCIL", DateTime.Now, errores_Totales(alumnos, "hard"), conversor_tiempo(tiempo_Totales(alumnos, "hard")));
             }
-            
         }
 
         /// <summary>
@@ -82,12 +92,12 @@ namespace BRAM
             int indice = listBoxAlumnos.SelectedIndex;
             if (indice >=0 && indice < alumnos.Count)
             {
-                Graficos graficos = new Graficos(alumnos[listBoxAlumnos.SelectedIndex].Nombre, alumnos, errores_Totales(alumnos, "hard"), tiempo_Totales(alumnos, "hard")); // Envía el nombre en forma de String a la ventana Graficos
+                Graficos graficos = new Graficos(alumnos[listBoxAlumnos.SelectedIndex].Nombre, alumnos); // Envía el nombre en forma de String a la ventana Graficos
                 graficos.Show();
             }
             else
             {
-                Graficos graficos = new Graficos("Media", alumnos, errores_Totales(alumnos, "hard"), tiempo_Totales(alumnos, "hard"));
+                Graficos graficos = new Graficos("Media", alumnos); // Envía 'Media' en forma de String a la ventana Graficos
                 graficos.Show();
             }
         }
