@@ -66,7 +66,8 @@ namespace BRAM
             }
             else if (indice >= 0) // Media
             {
-                dataGridViewPartidas.Rows.Add(1, "MEDIA", DateTime.Now, errores_Totales(alumnos), conversor_tiempo(tiempo_Totales(alumnos)));
+                dataGridViewPartidas.Rows.Add(1, "MEDIA FÁCIL", DateTime.Now, errores_Totales(alumnos,"easy"), conversor_tiempo(tiempo_Totales(alumnos, "easy")));
+                dataGridViewPartidas.Rows.Add(2, "MEDIA DIFÍCIL", DateTime.Now, errores_Totales(alumnos, "hard"), conversor_tiempo(tiempo_Totales(alumnos, "hard")));
             }
             
         }
@@ -81,12 +82,12 @@ namespace BRAM
             int indice = listBoxAlumnos.SelectedIndex;
             if (indice >=0 && indice < alumnos.Count)
             {
-                Graficos graficos = new Graficos(alumnos[listBoxAlumnos.SelectedIndex].Nombre, alumnos, errores_Totales(alumnos), tiempo_Totales(alumnos)); // Envía el nombre en forma de String a la ventana Graficos
+                Graficos graficos = new Graficos(alumnos[listBoxAlumnos.SelectedIndex].Nombre, alumnos, errores_Totales(alumnos, "hard"), tiempo_Totales(alumnos, "hard")); // Envía el nombre en forma de String a la ventana Graficos
                 graficos.Show();
             }
             else
             {
-                Graficos graficos = new Graficos("Media", alumnos, errores_Totales(alumnos), tiempo_Totales(alumnos));
+                Graficos graficos = new Graficos("Media", alumnos, errores_Totales(alumnos, "hard"), tiempo_Totales(alumnos, "hard"));
                 graficos.Show();
             }
         }
@@ -101,7 +102,6 @@ namespace BRAM
             int segundos = segundos_totales % 60;
             int minutos = segundos_totales / 60;
 
-
             return $"{minutos}:{segundos:D2}";
         }
 
@@ -110,8 +110,9 @@ namespace BRAM
         /// Devuelve un numero entero de la media de partidas jugadas.
         /// </summary>
         /// <param name="alumnos"></param>
+        /// <param name="modo"></param>
         /// <returns>Devuelve un entero con la media de partidas.</returns>
-        private int errores_Totales(List<Alumno> alumnos)
+        private int errores_Totales(List<Alumno> alumnos, string modo)
         {
             int mediaErrores = 0;
             int count = 0;
@@ -120,8 +121,11 @@ namespace BRAM
             {
                 foreach (var partida in alumno.Partidas)
                 {
-                    mediaErrores = mediaErrores + partida.Errores;
-                    count++;
+                    if (modo.Equals(partida.Modo))
+                    {
+                        mediaErrores = mediaErrores + partida.Errores;
+                        count++;
+                    }
                 }
             }
             return mediaErrores/count;
@@ -131,8 +135,9 @@ namespace BRAM
         /// Devuelve un numero entero de la media de partidas jugadas.
         /// </summary>
         /// <param name="alumnos"></param>
+        /// <param name="modo"></param>
         /// <returns>Devuelve un entero con la media de partidas.</returns>
-        private int tiempo_Totales(List<Alumno> alumnos)
+        private int tiempo_Totales(List<Alumno> alumnos, string modo)
         {
             int mediaErrores = 0;
             int count = 0;
@@ -141,8 +146,11 @@ namespace BRAM
             {
                 foreach (var partida in alumno.Partidas)
                 {
-                    mediaErrores = mediaErrores + partida.TiemposAnimales;
-                    count++;
+                    if (modo.Equals(partida.Modo))
+                    {
+                        mediaErrores = mediaErrores + partida.TiemposAnimales;
+                        count++;
+                    }
                 }
             }
             return mediaErrores / count;
