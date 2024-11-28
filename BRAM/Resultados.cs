@@ -93,12 +93,12 @@ namespace BRAM
             if (indice >=0 && indice < alumnos.Count)
             {
                 Graficos graficos = new Graficos(alumnos[listBoxAlumnos.SelectedIndex].Nombre, alumnos); // Envía el nombre en forma de String a la ventana Graficos
-                graficos.Show();
+                graficos.ShowDialog();
             }
             else
             {
                 Graficos graficos = new Graficos("Media", alumnos); // Envía 'Media' en forma de String a la ventana Graficos
-                graficos.Show();
+                graficos.ShowDialog();
             }
         }
 
@@ -164,6 +164,12 @@ namespace BRAM
                 }
             }
             return mediaErrores / count;
+        }
+
+        private void Resultados_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Inicio inicio = new Inicio();
+            inicio.Show();
         }
     }
 }

@@ -28,18 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Resultados));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Resultados));
             this.groupBoxResultados = new System.Windows.Forms.GroupBox();
+            this.buttonGraficos = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.buttonFichDel = new System.Windows.Forms.Button();
             this.dataGridViewPartidas = new System.Windows.Forms.DataGridView();
             this.listBoxAlumnos = new System.Windows.Forms.ListBox();
             this.textBoxAlumno = new System.Windows.Forms.TextBox();
-            this.buttonGraficos = new System.Windows.Forms.Button();
             this.groupBoxResultados.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPartidas)).BeginInit();
             this.SuspendLayout();
@@ -60,6 +60,23 @@
             this.groupBoxResultados.TabIndex = 0;
             this.groupBoxResultados.TabStop = false;
             this.groupBoxResultados.Text = "Gestor de datos";
+            // 
+            // buttonGraficos
+            // 
+            this.buttonGraficos.BackColor = System.Drawing.Color.Silver;
+            this.buttonGraficos.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonGraficos.BackgroundImage")));
+            this.buttonGraficos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonGraficos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonGraficos.Font = new System.Drawing.Font("Open Sans Semibold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonGraficos.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonGraficos.Location = new System.Drawing.Point(378, 36);
+            this.buttonGraficos.Name = "buttonGraficos";
+            this.buttonGraficos.Size = new System.Drawing.Size(244, 50);
+            this.buttonGraficos.TabIndex = 18;
+            this.buttonGraficos.Text = "Gráficos";
+            this.buttonGraficos.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.buttonGraficos.UseVisualStyleBackColor = false;
+            this.buttonGraficos.Click += new System.EventHandler(this.buttonGraficos_Click);
             // 
             // button1
             // 
@@ -175,23 +192,6 @@
             this.textBoxAlumno.TabIndex = 13;
             this.textBoxAlumno.TextChanged += new System.EventHandler(this.textBoxAlumno_TextChanged);
             // 
-            // buttonGraficos
-            // 
-            this.buttonGraficos.BackColor = System.Drawing.Color.Silver;
-            this.buttonGraficos.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonGraficos.BackgroundImage")));
-            this.buttonGraficos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonGraficos.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonGraficos.Font = new System.Drawing.Font("Open Sans Semibold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonGraficos.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonGraficos.Location = new System.Drawing.Point(378, 36);
-            this.buttonGraficos.Name = "buttonGraficos";
-            this.buttonGraficos.Size = new System.Drawing.Size(244, 50);
-            this.buttonGraficos.TabIndex = 18;
-            this.buttonGraficos.Text = "Gráficos";
-            this.buttonGraficos.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.buttonGraficos.UseVisualStyleBackColor = false;
-            this.buttonGraficos.Click += new System.EventHandler(this.buttonGraficos_Click);
-            // 
             // Resultados
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -207,6 +207,7 @@
             this.Name = "Resultados";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Resultados";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Resultados_FormClosed);
             this.groupBoxResultados.ResumeLayout(false);
             this.groupBoxResultados.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPartidas)).EndInit();

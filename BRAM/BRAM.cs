@@ -13,7 +13,7 @@ namespace BRAM
         private void buttonInicio_Click(object sender, EventArgs e)
         {
             Inicio i = new Inicio();
-            //this.Hide();
+            this.Hide();
             i.Show();
         }
     }

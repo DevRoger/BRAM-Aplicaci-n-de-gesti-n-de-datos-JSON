@@ -300,6 +300,7 @@
             this.Name = "Inicio";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Inicio";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Inicio_FormClosed);
             this.groupBoxGeneral.ResumeLayout(false);
             this.groupBoxGeneral.PerformLayout();
             this.groupBox1.ResumeLayout(false);

@@ -144,6 +144,7 @@ namespace BRAM
                         alumnos.Add(alumno);
                     }
 
+                    this.Hide();
                     Resultados resultados = new Resultados(alumnos);
                     resultados.Show();
                 }
@@ -158,20 +159,6 @@ namespace BRAM
             }
         }
 
-        /*
-        /// <summary>
-        /// Devuelve el nombre del archivo seleccionado en la listBoxArchivos
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void listBoxArchivos_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listBoxArchivos.SelectedIndex >= 0)
-            {
-                selectedFile = archivos[listBoxArchivos.SelectedIndex].NombreEntero;
-            }
-        }*/
-
         /// <summary>
         /// Devuelve el nombre del archivo seleccionado en el listViewArchivos.
         /// </summary>
@@ -182,6 +169,12 @@ namespace BRAM
                 int index = listViewArchivos.SelectedItems[0].Index;
                 selectedFile = archivos[index].NombreEntero;
             }
+        }
+
+        private void Inicio_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            BRAM bram = new BRAM();
+            bram.Show();
         }
     }
 }
