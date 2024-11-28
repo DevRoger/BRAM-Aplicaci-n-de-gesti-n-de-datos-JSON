@@ -11,7 +11,7 @@ namespace BRAM
 {
     public partial class Inicio : Form
     {
-        // Atributos
+        // Atributos declarados
         DirectoryInfo directorioActual;
         List<DirFich> archivos = new List<DirFich>();
         List<Alumno> alumnos = new List<Alumno>();
@@ -23,6 +23,9 @@ namespace BRAM
         public Inicio()
         {
             InitializeComponent();
+
+            // Asociar el evento DoubleClick al ListView
+            listViewArchivos.DoubleClick += ListViewArchivos_DoubleClick;
         }
 
 
@@ -250,6 +253,77 @@ namespace BRAM
         {
             BRAM bram = new BRAM();
             bram.Show();
+        }
+
+        /// <summary>
+        /// Maneja el evento de doble clic en el ListView para navegar a carpetas.
+        /// </summary>
+        private void ListViewArchivos_DoubleClick(object sender, EventArgs e)
+        {
+            if (listViewArchivos.SelectedItems.Count > 0)
+            {
+                // Obtener el elemento seleccionado
+                ListViewItem selectedItem = listViewArchivos.SelectedItems[0];
+
+                // Verificar si el elemento es un directorio
+                DirFich dirFich = selectedItem.Tag as DirFich;
+                if (dirFich != null && Directory.Exists(dirFich.NombreEntero))
+                {
+                    // Cambiar al nuevo directorio
+                    directorioActual = new DirectoryInfo(dirFich.NombreEntero);
+                    textBoxPath.Text = directorioActual.FullName;
+
+                    // Actualizar el contenido del ListView
+                    ActualizarContenidoDirectorio();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Actualiza el contenido del ListView con los elementos del directorio actual.
+        /// </summary>
+        private void ActualizarContenidoDirectorio()
+        {
+            archivos.Clear();
+            listViewArchivos.Items.Clear();
+
+            // Mostrar directorios
+            foreach (DirectoryInfo subdir in directorioActual.GetDirectories())
+            {
+                DirFich dirFich = new DirFich
+                {
+                    Nombre = subdir.Name,
+                    NombreEntero = subdir.FullName
+                };
+                archivos.Add(dirFich);
+
+                // Agregar directorio al ListView
+                var item = new ListViewItem(subdir.Name)
+                {
+                    ImageIndex = 0, // Ícono de carpeta
+                    Tag = dirFich
+                };
+                listViewArchivos.Items.Add(item);
+            }
+
+            // Mostrar archivos
+            foreach (FileInfo fichero in directorioActual.GetFiles())
+            {
+                DirFich dirFich = new DirFich
+                {
+                    Nombre = fichero.Name,
+                    NombreEntero = fichero.FullName
+                };
+                archivos.Add(dirFich);
+
+                // Agregar archivo al ListView
+                var item = new ListViewItem(fichero.Name)
+                {
+                    ImageIndex = 1, // Ícono de archivo
+                    Tag = dirFich
+                };
+                listViewArchivos.Items.Add(item);
+            }
         }
     }
 }
