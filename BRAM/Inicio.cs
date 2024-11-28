@@ -44,9 +44,7 @@ namespace BRAM
             if (result == DialogResult.OK)
             {
                 textBoxPath.Text = folder.SelectedPath;
-
                 directorioActual = new DirectoryInfo(textBoxPath.Text);
-
                 listViewArchivos.Items.Clear(); // Limpiar los elementos existentes
 
                 // Mostrar directorios
@@ -62,7 +60,7 @@ namespace BRAM
                     // Agregar directorio al ListView
                     var item = new ListViewItem(subdir.Name)
                     {
-                        ImageIndex = 0, // Índice para ícono de directorio en ImageList (opcional)
+                        ImageIndex = 0, // Índice para ícono de directorio en ImageList
                         Tag = dirFich   // Asocia el objeto DirFich
                     };
                     listViewArchivos.Items.Add(item);
@@ -78,10 +76,13 @@ namespace BRAM
                     };
                     archivos.Add(dirFich);
 
-                    // Agregar archivo al ListView
+                    // Si el archivo es un JSON, asignar el índice 2 para el icono
+                    int imageIndex = fichero.Extension.ToLower() == ".json" ? 2 : 1;
+
+                    // Agregar archivo al ListView con el icono correspondiente
                     var item = new ListViewItem(fichero.Name)
                     {
-                        ImageIndex = 1, // Índice para ícono de archivo en ImageList (opcional)
+                        ImageIndex = imageIndex, // Índice para ícono (2 para JSON)
                         Tag = dirFich   // Asocia el objeto DirFich
                     };
                     listViewArchivos.Items.Add(item);
@@ -120,10 +121,10 @@ namespace BRAM
                     };
                     archivos.Add(dirFich);
 
-                    // Agregar archivo JSON al ListView con ícono de archivo (índice 1)
+                    // Agregar archivo JSON al ListView con ícono de archivo JSON (índice 2)
                     var item = new ListViewItem(fichero.Name)
                     {
-                        ImageIndex = 1, // Índice para ícono de archivo en el ImageList
+                        ImageIndex = 2, // Índice para ícono de archivo JSON en ImageList
                         Tag = dirFich
                     };
                     listViewArchivos.Items.Add(item);
@@ -146,7 +147,7 @@ namespace BRAM
                     // Agregar directorio al ListView con ícono de directorio (índice 0)
                     var item = new ListViewItem(subdir.Name)
                     {
-                        ImageIndex = 0, // Índice para ícono de directorio en el ImageList
+                        ImageIndex = 0, // Índice para ícono de directorio en ImageList
                         Tag = dirFich
                     };
                     listViewArchivos.Items.Add(item);
@@ -162,10 +163,13 @@ namespace BRAM
                     };
                     archivos.Add(dirFich);
 
-                    // Agregar archivo al ListView con ícono de archivo (índice 1)
+                    // Asignar el índice adecuado según la extensión del archivo
+                    int imageIndex = fichero.Extension.ToLower() == ".json" ? 2 : 1;
+
+                    // Agregar archivo al ListView con el ícono correspondiente
                     var item = new ListViewItem(fichero.Name)
                     {
-                        ImageIndex = 1, // Índice para ícono de archivo en el ImageList
+                        ImageIndex = imageIndex, // Índice para ícono (2 para JSON, 1 para otros archivos)
                         Tag = dirFich
                     };
                     listViewArchivos.Items.Add(item);
@@ -181,62 +185,6 @@ namespace BRAM
         }
 
 
-
-        /// <summary>
-        /// Inicializa el formulario con los datos del JSON seleccionados. Si el archivo seleccionado no es un JSON, salta un aviso de error.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void buttonResults_Click(object sender, EventArgs e)
-        {
-            // Clear existing data in alumnos list before loading from JSON
-            alumnos.Clear();
-
-            if (Path.GetExtension(selectedFile).ToLower() == ".json")
-            {
-                try
-                {
-                    string jsonData = File.ReadAllText(selectedFile);
-                    var alumnosData = JsonConvert.DeserializeObject<List<Alumno>>(jsonData);
-
-                    foreach (var alumnoData in alumnosData)
-                    {
-                        Alumno alumno = new Alumno
-                        {
-                            Nombre = alumnoData.Nombre
-                        };
-
-                        foreach (var partidaData in alumnoData.Partidas)
-                        {
-                            Partida partida = new Partida
-                            {
-                                Modo = partidaData.Modo,
-                                Fecha = partidaData.Fecha,
-                                Errores = partidaData.Errores,
-                                TiemposAnimales = partidaData.TiemposAnimales
-                            };
-
-                            alumno.Partidas.Add(partida);
-                        }
-
-                        alumnos.Add(alumno);
-                    }
-
-                    this.Hide();
-                    Resultados resultados = new Resultados(alumnos);
-                    resultados.Show();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error reading JSON file: " + ex.Message);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Selected file is not a JSON file.");
-            }
-        }
-
         /// <summary>
         /// Devuelve el nombre del archivo seleccionado en el listViewArchivos.
         /// </summary>
@@ -250,13 +198,12 @@ namespace BRAM
         }
 
         private void Inicio_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            BRAM bram = new BRAM();
-            bram.Show();
+        { 
+            Application.Exit();
         }
 
         /// <summary>
-        /// Maneja el evento de doble clic en el ListView para navegar a carpetas.
+        /// Maneja el evento de doble clic en el ListView para navegar a carpetas o abrir archivos JSON.
         /// </summary>
         private void ListViewArchivos_DoubleClick(object sender, EventArgs e)
         {
@@ -264,17 +211,26 @@ namespace BRAM
             {
                 // Obtener el elemento seleccionado
                 ListViewItem selectedItem = listViewArchivos.SelectedItems[0];
-
-                // Verificar si el elemento es un directorio
                 DirFich dirFich = selectedItem.Tag as DirFich;
-                if (dirFich != null && Directory.Exists(dirFich.NombreEntero))
-                {
-                    // Cambiar al nuevo directorio
-                    directorioActual = new DirectoryInfo(dirFich.NombreEntero);
-                    textBoxPath.Text = directorioActual.FullName;
 
-                    // Actualizar el contenido del ListView
-                    ActualizarContenidoDirectorio();
+                if (dirFich != null)
+                {
+                    // Si es un directorio, navegar a él
+                    if (Directory.Exists(dirFich.NombreEntero))
+                    {
+                        directorioActual = new DirectoryInfo(dirFich.NombreEntero);
+                        textBoxPath.Text = directorioActual.FullName;
+                        ActualizarContenidoDirectorio();
+                    }
+                    // Si es un archivo JSON, cargarlo y abrir el formulario de resultados
+                    else if (File.Exists(dirFich.NombreEntero) && Path.GetExtension(dirFich.NombreEntero).ToLower() == ".json")
+                    {
+                        CargarYMostrarResultados(dirFich.NombreEntero);
+                    }
+                    else
+                    {
+                        MessageBox.Show("El archivo seleccionado no es un archivo JSON válido.");
+                    }
                 }
             }
         }
@@ -323,6 +279,55 @@ namespace BRAM
                     Tag = dirFich
                 };
                 listViewArchivos.Items.Add(item);
+            }
+        }
+
+        /// <summary>
+        /// Carga el archivo JSON y navega al formulario de resultados.
+        /// </summary>
+        /// <param name="rutaArchivo">Ruta completa del archivo JSON.</param>
+        private void CargarYMostrarResultados(string rutaArchivo)
+        {
+            try
+            {
+                // Limpiar datos previos
+                alumnos.Clear();
+
+                // Leer y deserializar el archivo JSON
+                string jsonData = File.ReadAllText(rutaArchivo);
+                var alumnosData = JsonConvert.DeserializeObject<List<Alumno>>(jsonData);
+
+                foreach (var alumnoData in alumnosData)
+                {
+                    Alumno alumno = new Alumno
+                    {
+                        Nombre = alumnoData.Nombre
+                    };
+
+                    foreach (var partidaData in alumnoData.Partidas)
+                    {
+                        Partida partida = new Partida
+                        {
+                            Modo = partidaData.Modo,
+                            Fecha = partidaData.Fecha,
+                            Errores = partidaData.Errores,
+                            TiemposAnimales = partidaData.TiemposAnimales
+                        };
+
+                        alumno.Partidas.Add(partida);
+                    }
+
+                    alumnos.Add(alumno);
+                }
+
+                // Ocultar este formulario y mostrar el de resultados
+                this.Hide();
+                Resultados resultados = new Resultados(alumnos);
+                resultados.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar el archivo JSON: {ex.Message}");
             }
         }
     }

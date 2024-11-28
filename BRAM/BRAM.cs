@@ -16,5 +16,10 @@ namespace BRAM
             this.Hide();
             i.Show();
         }
+
+        private void BRAM_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

@@ -34,7 +34,6 @@
             this.listViewArchivos = new System.Windows.Forms.ListView();
             this.buttonExaminar = new System.Windows.Forms.Button();
             this.checkBoxJSON = new System.Windows.Forms.CheckBox();
-            this.buttonResults = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttonFichDel = new System.Windows.Forms.Button();
             this.buttonFichMod = new System.Windows.Forms.Button();
@@ -60,7 +59,6 @@
             this.groupBoxGeneral.Controls.Add(this.listViewArchivos);
             this.groupBoxGeneral.Controls.Add(this.buttonExaminar);
             this.groupBoxGeneral.Controls.Add(this.checkBoxJSON);
-            this.groupBoxGeneral.Controls.Add(this.buttonResults);
             this.groupBoxGeneral.Controls.Add(this.groupBox1);
             this.groupBoxGeneral.Controls.Add(this.groupBox2);
             this.groupBoxGeneral.Controls.Add(this.textBoxPath);
@@ -79,7 +77,7 @@
             this.listViewArchivos.Location = new System.Drawing.Point(6, 325);
             this.listViewArchivos.MultiSelect = false;
             this.listViewArchivos.Name = "listViewArchivos";
-            this.listViewArchivos.Size = new System.Drawing.Size(1148, 256);
+            this.listViewArchivos.Size = new System.Drawing.Size(1148, 280);
             this.listViewArchivos.SmallImageList = this.imageList1;
             this.listViewArchivos.TabIndex = 21;
             this.listViewArchivos.UseCompatibleStateImageBehavior = false;
@@ -114,7 +112,7 @@
             this.checkBoxJSON.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBoxJSON.Font = new System.Drawing.Font("Open Sans Semibold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxJSON.Image = global::BRAM.Properties.Resources.icons8_casilla_de_verificación_desactivada_26;
-            this.checkBoxJSON.Location = new System.Drawing.Point(805, 602);
+            this.checkBoxJSON.Location = new System.Drawing.Point(978, 610);
             this.checkBoxJSON.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxJSON.Name = "checkBoxJSON";
             this.checkBoxJSON.Size = new System.Drawing.Size(180, 47);
@@ -123,24 +121,6 @@
             this.checkBoxJSON.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.checkBoxJSON.UseVisualStyleBackColor = true;
             this.checkBoxJSON.CheckedChanged += new System.EventHandler(this.checkBoxJSON_CheckedChanged);
-            // 
-            // buttonResults
-            // 
-            this.buttonResults.BackColor = System.Drawing.Color.Silver;
-            this.buttonResults.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonResults.BackgroundImage")));
-            this.buttonResults.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonResults.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonResults.Font = new System.Drawing.Font("Open Sans Semibold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonResults.Image = global::BRAM.Properties.Resources.icons8_search_more_26;
-            this.buttonResults.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonResults.Location = new System.Drawing.Point(400, 592);
-            this.buttonResults.Name = "buttonResults";
-            this.buttonResults.Size = new System.Drawing.Size(400, 60);
-            this.buttonResults.TabIndex = 18;
-            this.buttonResults.Text = "Ver Resultados";
-            this.buttonResults.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.buttonResults.UseVisualStyleBackColor = false;
-            this.buttonResults.Click += new System.EventHandler(this.buttonResults_Click);
             // 
             // groupBox1
             // 
@@ -293,6 +273,7 @@
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "directory_icon.png");
             this.imageList1.Images.SetKeyName(1, "file_icon.png");
+            this.imageList1.Images.SetKeyName(2, "json_icon.png");
             // 
             // imageList2
             // 
@@ -300,6 +281,7 @@
             this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList2.Images.SetKeyName(0, "directory_icon.png");
             this.imageList2.Images.SetKeyName(1, "file_icon.png");
+            this.imageList2.Images.SetKeyName(2, "json_icon.png");
             // 
             // Inicio
             // 
@@ -336,7 +318,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button buttonDirCreate;
         private System.Windows.Forms.CheckBox checkBoxJSON;
-        private System.Windows.Forms.Button buttonResults;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button buttonFichDel;
         private System.Windows.Forms.Button buttonFichMod;
