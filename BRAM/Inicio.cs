@@ -46,6 +46,26 @@ namespace BRAM
 
                 listViewArchivos.Items.Clear(); // Limpiar los elementos existentes
 
+                // Mostrar directorios
+                foreach (DirectoryInfo subdir in directorioActual.GetDirectories())
+                {
+                    DirFich dirFich = new DirFich
+                    {
+                        Nombre = subdir.Name,
+                        NombreEntero = subdir.FullName
+                    };
+                    archivos.Add(dirFich);
+
+                    // Agregar directorio al ListView
+                    var item = new ListViewItem(subdir.Name)
+                    {
+                        ImageIndex = 0, // Índice para ícono de directorio en ImageList (opcional)
+                        Tag = dirFich   // Asocia el objeto DirFich
+                    };
+                    listViewArchivos.Items.Add(item);
+                }
+
+                // Mostrar archivos
                 foreach (FileInfo fichero in directorioActual.GetFiles())
                 {
                     DirFich dirFich = new DirFich
@@ -56,52 +76,107 @@ namespace BRAM
                     archivos.Add(dirFich);
 
                     // Agregar archivo al ListView
-                    var item = new ListViewItem(fichero.Name);
+                    var item = new ListViewItem(fichero.Name)
+                    {
+                        ImageIndex = 1, // Índice para ícono de archivo en ImageList (opcional)
+                        Tag = dirFich   // Asocia el objeto DirFich
+                    };
                     listViewArchivos.Items.Add(item);
                 }
-            }                                                                                             
-        }                                                                                                 
-                                                                                                          
-                                                                                                          
-        /// <summary>                                                                                     
-        /// Filtra los documentos en la listBoxArchivos mostrando solamente los JSONs.                    
-        /// </summary>                                                                                    
-        /// <param name="sender"></param>                                                                 
-        /// <param name="e"></param>                                                                      
-        private void checkBoxJSON_CheckedChanged(object sender, EventArgs e)                              
-        {
-            if (directorioActual == null)                                                                 
-            {                                                                                             
-                return;                                                                                   
-            }                                                                                             
-                                                                                                          
-            var filteredFiles = checkBoxJSON.Checked                                                                        
-                ? directorioActual.GetFiles().Where(f => f.Extension.ToLower() == ".json")                                  
-                : directorioActual.GetFiles();                                                                              
-                                                                                                                            
-            archivos.Clear();                                                                                               
-            listViewArchivos.Items.Clear(); // Limpiar los elementos existentes                                             
-                                                                                                                            
-            foreach (FileInfo fichero in filteredFiles)
-            {
-                DirFich dirFich = new DirFich
-                {
-                    Nombre = fichero.Name,
-                    NombreEntero = fichero.FullName
-                };
-                archivos.Add(dirFich);
+            }
+        }
 
-                // Agregar archivo al ListView
-                var item = new ListViewItem(fichero.Name);
-                listViewArchivos.Items.Add(item);
+
+        /// <summary>
+        /// Filtra los documentos en el ListView mostrando solamente los JSONs, o todos los elementos (archivos y directorios) si el filtro está desactivado.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkBoxJSON_CheckedChanged(object sender, EventArgs e)
+        {
+            if (directorioActual == null)
+            {
+                return;
             }
 
+            archivos.Clear();
+            listViewArchivos.Items.Clear(); // Limpiar los elementos existentes
+
+            if (checkBoxJSON.Checked)
+            {
+                // Filtrar solo archivos JSON
+                var filteredFiles = directorioActual.GetFiles()
+                    .Where(f => f.Extension.ToLower() == ".json");
+
+                foreach (FileInfo fichero in filteredFiles)
+                {
+                    DirFich dirFich = new DirFich
+                    {
+                        Nombre = fichero.Name,
+                        NombreEntero = fichero.FullName
+                    };
+                    archivos.Add(dirFich);
+
+                    // Agregar archivo JSON al ListView con ícono de archivo (índice 1)
+                    var item = new ListViewItem(fichero.Name)
+                    {
+                        ImageIndex = 1, // Índice para ícono de archivo en el ImageList
+                        Tag = dirFich
+                    };
+                    listViewArchivos.Items.Add(item);
+                }
+            }
+            else
+            {
+                // Mostrar todos los archivos y directorios
+
+                // Agregar directorios
+                foreach (DirectoryInfo subdir in directorioActual.GetDirectories())
+                {
+                    DirFich dirFich = new DirFich
+                    {
+                        Nombre = subdir.Name,
+                        NombreEntero = subdir.FullName
+                    };
+                    archivos.Add(dirFich);
+
+                    // Agregar directorio al ListView con ícono de directorio (índice 0)
+                    var item = new ListViewItem(subdir.Name)
+                    {
+                        ImageIndex = 0, // Índice para ícono de directorio en el ImageList
+                        Tag = dirFich
+                    };
+                    listViewArchivos.Items.Add(item);
+                }
+
+                // Agregar archivos
+                foreach (FileInfo fichero in directorioActual.GetFiles())
+                {
+                    DirFich dirFich = new DirFich
+                    {
+                        Nombre = fichero.Name,
+                        NombreEntero = fichero.FullName
+                    };
+                    archivos.Add(dirFich);
+
+                    // Agregar archivo al ListView con ícono de archivo (índice 1)
+                    var item = new ListViewItem(fichero.Name)
+                    {
+                        ImageIndex = 1, // Índice para ícono de archivo en el ImageList
+                        Tag = dirFich
+                    };
+                    listViewArchivos.Items.Add(item);
+                }
+            }
+
+            // Cambiar el ícono del CheckBox (opcional)
             CheckBox chk = sender as CheckBox;
             if (chk.Checked)
                 chk.Image = Properties.Resources.icons8_casilla_de_verificación_marcada_26;
             else
                 chk.Image = Properties.Resources.icons8_casilla_de_verificación_desactivada_26;
         }
+
 
 
         /// <summary>

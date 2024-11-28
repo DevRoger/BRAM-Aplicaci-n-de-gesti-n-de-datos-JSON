@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Inicio));
             this.groupBoxGeneral = new System.Windows.Forms.GroupBox();
             this.listViewArchivos = new System.Windows.Forms.ListView();
@@ -44,6 +45,8 @@
             this.textBoxPath = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.groupBoxGeneral.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -72,13 +75,14 @@
             // listViewArchivos
             // 
             this.listViewArchivos.HideSelection = false;
+            this.listViewArchivos.LargeImageList = this.imageList2;
             this.listViewArchivos.Location = new System.Drawing.Point(6, 325);
             this.listViewArchivos.MultiSelect = false;
             this.listViewArchivos.Name = "listViewArchivos";
             this.listViewArchivos.Size = new System.Drawing.Size(1148, 256);
+            this.listViewArchivos.SmallImageList = this.imageList1;
             this.listViewArchivos.TabIndex = 21;
             this.listViewArchivos.UseCompatibleStateImageBehavior = false;
-            this.listViewArchivos.View = System.Windows.Forms.View.List;
             this.listViewArchivos.SelectedIndexChanged += new System.EventHandler(this.listViewArchivos_SelectedIndexChanged);
             // 
             // buttonExaminar
@@ -283,6 +287,20 @@
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
             // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "directory_icon.png");
+            this.imageList1.Images.SetKeyName(1, "file_icon.png");
+            // 
+            // imageList2
+            // 
+            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
+            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList2.Images.SetKeyName(0, "directory_icon.png");
+            this.imageList2.Images.SetKeyName(1, "file_icon.png");
+            // 
             // Inicio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -328,5 +346,7 @@
         private System.Windows.Forms.ListView listViewArchivos;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ImageList imageList2;
     }
 }
