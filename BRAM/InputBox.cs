@@ -16,6 +16,11 @@ namespace BRAM
             textBoxNuevoNombre.Text = nombreActual;  // Poner el nombre actual en el TextBox
         }
 
+        /// <summary>
+        /// Devuelve OK si el cambio de nombre ha sido correcto
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonOK_Click(object sender, EventArgs e)
         {
             string nuevoNombre = textBoxNuevoNombre.Text.Trim();
@@ -42,6 +47,11 @@ namespace BRAM
             this.Close();
         }
 
+        /// <summary>
+        /// Devuelve KO si el cambio de nombre ha sido insatisfactorio
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonCancelar_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;

@@ -357,16 +357,30 @@ namespace BRAM
             }
         }
 
+        /// <summary>
+        /// Crea una carpeta con el nombre deseado
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonDirCreate_Click(object sender, EventArgs e)
         {
             CrearElemento("Carpeta");
         }
 
+        /// <summary>
+        /// Crea un archivo con el nombre deseado
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonFichCreate_Click(object sender, EventArgs e)
         {
             CrearElemento("Archivo");
         }
 
+        /// <summary>
+        /// Crea un elemento del tipo tipoElemento (Carpeta o Archivo)
+        /// </summary>
+        /// <param name="tipoElemento"></param>
         private void CrearElemento(string tipoElemento)
         {
             if (directorioActual == null)
@@ -421,6 +435,11 @@ namespace BRAM
             }
         }
 
+        /// <summary>
+        /// Elimina la carpeta o el archivo seleccionado en el listViewArchivos
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonFichDel_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(selectedFile))
@@ -479,6 +498,11 @@ namespace BRAM
             }
         }
 
+        /// <summary>
+        /// Permite modificar el nombre de la Carpeta o Archivo seleccionados
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonFichMod_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(selectedFile))
@@ -522,7 +546,5 @@ namespace BRAM
                 }
             }
         }
-
-
     }
 }

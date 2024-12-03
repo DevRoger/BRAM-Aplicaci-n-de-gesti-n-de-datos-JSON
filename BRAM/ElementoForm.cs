@@ -16,6 +16,11 @@ namespace BRAM
             this.Text = $"Crear {tipoElemento}";
         }
 
+        /// <summary>
+        /// Devuelve OK si el nombre para el nuevo Archivo o Carpeta son correctos
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonAceptar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(textBoxElemento.Text))
@@ -29,6 +34,11 @@ namespace BRAM
             this.Close();
         }
 
+        /// <summary>
+        /// Devuelve KO si el nombre para el nuevo Archivo o Carpeta son correctos
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonCancelar_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
