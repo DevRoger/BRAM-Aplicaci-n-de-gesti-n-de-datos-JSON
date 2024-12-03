@@ -194,6 +194,18 @@ namespace BRAM
             {
                 int index = listViewArchivos.SelectedItems[0].Index;
                 selectedFile = archivos[index].NombreEntero;
+
+                // Habilitar botones porque hay un elemento seleccionado
+                buttonFichMod.Enabled = true;
+                buttonFichDel.Enabled = true;
+            }
+            else
+            {
+                selectedFile = null;
+
+                // Deshabilitar botones porque no hay selección
+                buttonFichMod.Enabled = false;
+                buttonFichDel.Enabled = false;
             }
         }
 
@@ -242,6 +254,7 @@ namespace BRAM
         {
             archivos.Clear();
             listViewArchivos.Items.Clear();
+            selectedFile = null;
 
             // Mostrar directorios
             foreach (DirectoryInfo subdir in directorioActual.GetDirectories())

@@ -41,7 +41,6 @@
             this.buttonFichMod = new System.Windows.Forms.Button();
             this.buttonFichCreate = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.buttonDirMod = new System.Windows.Forms.Button();
             this.buttonDirCreate = new System.Windows.Forms.Button();
             this.textBoxPath = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -74,10 +73,10 @@
             // 
             this.listViewArchivos.HideSelection = false;
             this.listViewArchivos.LargeImageList = this.imageList2;
-            this.listViewArchivos.Location = new System.Drawing.Point(6, 325);
+            this.listViewArchivos.Location = new System.Drawing.Point(6, 256);
             this.listViewArchivos.MultiSelect = false;
             this.listViewArchivos.Name = "listViewArchivos";
-            this.listViewArchivos.Size = new System.Drawing.Size(1148, 280);
+            this.listViewArchivos.Size = new System.Drawing.Size(1148, 349);
             this.listViewArchivos.SmallImageList = this.imageList1;
             this.listViewArchivos.TabIndex = 21;
             this.listViewArchivos.UseCompatibleStateImageBehavior = false;
@@ -142,15 +141,14 @@
             // 
             this.groupBox1.Controls.Add(this.buttonFichDel);
             this.groupBox1.Controls.Add(this.buttonFichMod);
-            this.groupBox1.Controls.Add(this.buttonFichCreate);
             this.groupBox1.Location = new System.Drawing.Point(605, 90);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(550, 230);
+            this.groupBox1.Size = new System.Drawing.Size(550, 161);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Ficheros";
+            this.groupBox1.Text = "Modificar";
             // 
             // buttonFichDel
             // 
@@ -161,11 +159,11 @@
             this.buttonFichDel.Font = new System.Drawing.Font("Open Sans Semibold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonFichDel.Image = global::BRAM.Properties.Resources.icons8_trash_can_26;
             this.buttonFichDel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonFichDel.Location = new System.Drawing.Point(5, 176);
+            this.buttonFichDel.Location = new System.Drawing.Point(5, 92);
             this.buttonFichDel.Name = "buttonFichDel";
             this.buttonFichDel.Size = new System.Drawing.Size(540, 50);
             this.buttonFichDel.TabIndex = 13;
-            this.buttonFichDel.Text = "Eliminar Fichero";
+            this.buttonFichDel.Text = "Eliminar";
             this.buttonFichDel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonFichDel.UseVisualStyleBackColor = false;
             this.buttonFichDel.Click += new System.EventHandler(this.buttonFichDel_Click);
@@ -179,11 +177,11 @@
             this.buttonFichMod.Font = new System.Drawing.Font("Open Sans Semibold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonFichMod.Image = ((System.Drawing.Image)(resources.GetObject("buttonFichMod.Image")));
             this.buttonFichMod.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonFichMod.Location = new System.Drawing.Point(5, 111);
+            this.buttonFichMod.Location = new System.Drawing.Point(5, 36);
             this.buttonFichMod.Name = "buttonFichMod";
             this.buttonFichMod.Size = new System.Drawing.Size(540, 50);
             this.buttonFichMod.TabIndex = 12;
-            this.buttonFichMod.Text = "Modificar Fichero";
+            this.buttonFichMod.Text = "Modificar";
             this.buttonFichMod.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonFichMod.UseVisualStyleBackColor = false;
             this.buttonFichMod.Click += new System.EventHandler(this.buttonFichMod_Click);
@@ -197,7 +195,7 @@
             this.buttonFichCreate.Font = new System.Drawing.Font("Open Sans Semibold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonFichCreate.Image = ((System.Drawing.Image)(resources.GetObject("buttonFichCreate.Image")));
             this.buttonFichCreate.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonFichCreate.Location = new System.Drawing.Point(5, 46);
+            this.buttonFichCreate.Location = new System.Drawing.Point(5, 92);
             this.buttonFichCreate.Name = "buttonFichCreate";
             this.buttonFichCreate.Size = new System.Drawing.Size(540, 50);
             this.buttonFichCreate.TabIndex = 11;
@@ -208,33 +206,16 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.buttonDirMod);
             this.groupBox2.Controls.Add(this.buttonDirCreate);
-            this.groupBox2.Location = new System.Drawing.Point(6, 140);
+            this.groupBox2.Controls.Add(this.buttonFichCreate);
+            this.groupBox2.Location = new System.Drawing.Point(6, 90);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(550, 180);
+            this.groupBox2.Size = new System.Drawing.Size(550, 161);
             this.groupBox2.TabIndex = 16;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Directorios";
-            // 
-            // buttonDirMod
-            // 
-            this.buttonDirMod.BackColor = System.Drawing.Color.Silver;
-            this.buttonDirMod.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDirMod.BackgroundImage")));
-            this.buttonDirMod.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonDirMod.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonDirMod.Font = new System.Drawing.Font("Open Sans Semibold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonDirMod.Image = ((System.Drawing.Image)(resources.GetObject("buttonDirMod.Image")));
-            this.buttonDirMod.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonDirMod.Location = new System.Drawing.Point(5, 110);
-            this.buttonDirMod.Name = "buttonDirMod";
-            this.buttonDirMod.Size = new System.Drawing.Size(540, 50);
-            this.buttonDirMod.TabIndex = 12;
-            this.buttonDirMod.Text = "Modificar Directorio";
-            this.buttonDirMod.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.buttonDirMod.UseVisualStyleBackColor = false;
+            this.groupBox2.Text = "Crear";
             // 
             // buttonDirCreate
             // 
@@ -245,7 +226,7 @@
             this.buttonDirCreate.Font = new System.Drawing.Font("Open Sans Semibold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonDirCreate.Image = ((System.Drawing.Image)(resources.GetObject("buttonDirCreate.Image")));
             this.buttonDirCreate.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonDirCreate.Location = new System.Drawing.Point(5, 46);
+            this.buttonDirCreate.Location = new System.Drawing.Point(5, 36);
             this.buttonDirCreate.Name = "buttonDirCreate";
             this.buttonDirCreate.Size = new System.Drawing.Size(540, 50);
             this.buttonDirCreate.TabIndex = 11;
@@ -326,7 +307,6 @@
         private System.Windows.Forms.Button buttonFichDel;
         private System.Windows.Forms.Button buttonFichMod;
         private System.Windows.Forms.Button buttonFichCreate;
-        private System.Windows.Forms.Button buttonDirMod;
         private System.Windows.Forms.Button buttonExaminar;
         private System.Windows.Forms.ListView listViewArchivos;
         private System.Windows.Forms.PictureBox pictureBox1;
