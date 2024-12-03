@@ -344,5 +344,172 @@ namespace BRAM
             }
         }
 
+        private void buttonDirCreate_Click(object sender, EventArgs e)
+        {
+            CrearElemento("Carpeta");
+        }
+
+        private void buttonFichCreate_Click(object sender, EventArgs e)
+        {
+            CrearElemento("Archivo");
+        }
+
+        private void CrearElemento(string tipoElemento)
+        {
+            if (directorioActual == null)
+            {
+                MessageBox.Show("Por favor, selecciona un directorio en el que crear el elemento.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            using (ElementoForm form = new ElementoForm(tipoElemento))
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    string nuevoElemento = Path.Combine(directorioActual.FullName, form.NombreElemento);
+
+                    try
+                    {
+                        if (tipoElemento == "Carpeta")
+                        {
+                            // Crear carpeta
+                            if (Directory.Exists(nuevoElemento))
+                            {
+                                MessageBox.Show("Ya existe una carpeta con ese nombre en el directorio seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                            else
+                            {
+                                Directory.CreateDirectory(nuevoElemento);
+                                MessageBox.Show("La carpeta se creó correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                        else if (tipoElemento == "Archivo")
+                        {
+                            // Crear archivo
+                            if (File.Exists(nuevoElemento))
+                            {
+                                MessageBox.Show("Ya existe un archivo con ese nombre en el directorio seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                            else
+                            {
+                                File.Create(nuevoElemento).Dispose();
+                                MessageBox.Show("El archivo se creó correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+
+                        // Actualizar el contenido del ListView
+                        ActualizarContenidoDirectorio();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error al crear el {tipoElemento.ToLower()}: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void buttonFichDel_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(selectedFile))
+            {
+                MessageBox.Show("Por favor, selecciona un archivo o carpeta del ListView para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                // Verificar si el archivo o carpeta existe antes de intentar eliminarlo
+                if (File.Exists(selectedFile))
+                {
+                    // Confirmar la eliminación con el usuario
+                    DialogResult confirmResult = MessageBox.Show(
+                        $"¿Estás seguro de que deseas eliminar el archivo '{Path.GetFileName(selectedFile)}'?",
+                        "Confirmar eliminación",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
+
+                    if (confirmResult == DialogResult.Yes)
+                    {
+                        File.Delete(selectedFile);
+                        MessageBox.Show("El archivo se eliminó correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Actualizar el contenido del ListView
+                        ActualizarContenidoDirectorio();
+                    }
+                }
+                else if (Directory.Exists(selectedFile))
+                {
+                    // Confirmar la eliminación con el usuario para una carpeta
+                    DialogResult confirmResult = MessageBox.Show(
+                        $"¿Estás seguro de que deseas eliminar la carpeta '{Path.GetFileName(selectedFile)}'?",
+                        "Confirmar eliminación",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
+
+                    if (confirmResult == DialogResult.Yes)
+                    {
+                        Directory.Delete(selectedFile, true);  // Eliminar la carpeta y su contenido
+                        MessageBox.Show("La carpeta se eliminó correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Actualizar el contenido del ListView
+                        ActualizarContenidoDirectorio();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("El archivo o carpeta seleccionado(a) ya no existe. Puede haber sido movido o eliminado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al intentar eliminar el archivo o carpeta: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonFichMod_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(selectedFile))
+            {
+                MessageBox.Show("Por favor, selecciona un archivo o carpeta para modificar su nombre.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Crear y mostrar el formulario de renombrado
+            string nombreActual = Path.GetFileName(selectedFile);
+            using (InputBox formRenombrar = new InputBox(selectedFile, nombreActual))
+            {
+                if (formRenombrar.ShowDialog() == DialogResult.OK)
+                {
+                    // Obtener el nuevo nombre del formulario
+                    string nuevoNombre = formRenombrar.NuevoNombre;
+                    string directorio = Path.GetDirectoryName(selectedFile);
+                    string nuevaRuta = Path.Combine(directorio, nuevoNombre);
+
+                    try
+                    {
+                        // Renombrar el archivo o carpeta
+                        if (File.Exists(selectedFile))
+                        {
+                            File.Move(selectedFile, nuevaRuta);
+                            MessageBox.Show("El archivo se renombró correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else if (Directory.Exists(selectedFile))
+                        {
+                            Directory.Move(selectedFile, nuevaRuta);
+                            MessageBox.Show("La carpeta se renombró correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+
+                        // Actualizar el contenido del ListView
+                        ActualizarContenidoDirectorio();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error al intentar renombrar el archivo o carpeta: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+
     }
 }

@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Inicio));
             this.groupBoxGeneral = new System.Windows.Forms.GroupBox();
             this.listViewArchivos = new System.Windows.Forms.ListView();
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.buttonExaminar = new System.Windows.Forms.Button();
             this.checkBoxJSON = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -44,8 +46,6 @@
             this.textBoxPath = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.groupBoxGeneral.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -82,6 +82,22 @@
             this.listViewArchivos.TabIndex = 21;
             this.listViewArchivos.UseCompatibleStateImageBehavior = false;
             this.listViewArchivos.SelectedIndexChanged += new System.EventHandler(this.listViewArchivos_SelectedIndexChanged);
+            // 
+            // imageList2
+            // 
+            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
+            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList2.Images.SetKeyName(0, "directory_icon.png");
+            this.imageList2.Images.SetKeyName(1, "file_icon.png");
+            this.imageList2.Images.SetKeyName(2, "json_icon.png");
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "directory_icon.png");
+            this.imageList1.Images.SetKeyName(1, "file_icon.png");
+            this.imageList1.Images.SetKeyName(2, "json_icon.png");
             // 
             // buttonExaminar
             // 
@@ -152,6 +168,7 @@
             this.buttonFichDel.Text = "Eliminar Fichero";
             this.buttonFichDel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonFichDel.UseVisualStyleBackColor = false;
+            this.buttonFichDel.Click += new System.EventHandler(this.buttonFichDel_Click);
             // 
             // buttonFichMod
             // 
@@ -169,6 +186,7 @@
             this.buttonFichMod.Text = "Modificar Fichero";
             this.buttonFichMod.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonFichMod.UseVisualStyleBackColor = false;
+            this.buttonFichMod.Click += new System.EventHandler(this.buttonFichMod_Click);
             // 
             // buttonFichCreate
             // 
@@ -186,6 +204,7 @@
             this.buttonFichCreate.Text = "Crear Fichero";
             this.buttonFichCreate.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonFichCreate.UseVisualStyleBackColor = false;
+            this.buttonFichCreate.Click += new System.EventHandler(this.buttonFichCreate_Click);
             // 
             // groupBox2
             // 
@@ -233,6 +252,7 @@
             this.buttonDirCreate.Text = "Crear Directorio";
             this.buttonDirCreate.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonDirCreate.UseVisualStyleBackColor = false;
+            this.buttonDirCreate.Click += new System.EventHandler(this.buttonDirCreate_Click);
             // 
             // textBoxPath
             // 
@@ -266,22 +286,6 @@
             this.pictureBox2.Size = new System.Drawing.Size(1187, 90);
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "directory_icon.png");
-            this.imageList1.Images.SetKeyName(1, "file_icon.png");
-            this.imageList1.Images.SetKeyName(2, "json_icon.png");
-            // 
-            // imageList2
-            // 
-            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
-            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList2.Images.SetKeyName(0, "directory_icon.png");
-            this.imageList2.Images.SetKeyName(1, "file_icon.png");
-            this.imageList2.Images.SetKeyName(2, "json_icon.png");
             // 
             // Inicio
             // 

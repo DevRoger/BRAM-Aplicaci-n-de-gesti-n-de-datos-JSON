@@ -176,6 +176,9 @@ namespace BRAM
             inicio.Show();
         }
 
+        /// <summary>
+        /// Elimina el alumno seleccionado tanto de la lista como del archivo JSON.
+        /// </summary>
         private void buttonFichDel_Click(object sender, EventArgs e)
         {
             // Verificar si hay un alumno seleccionado en el ListBox
@@ -183,28 +186,38 @@ namespace BRAM
             if (indice >= 0 && indice < alumnos.Count) // Excluye la opción "Media"
             {
                 // Confirmar la eliminación
-                var result = MessageBox.Show("¿Estás seguro de que deseas eliminar este alumno?", "Confirmar eliminación", MessageBoxButtons.YesNo);
+                var result = MessageBox.Show("¿Estás seguro de que deseas eliminar este alumno?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    // Obtener el alumno seleccionado
-                    Alumno alumnoSeleccionado = alumnos[indice];
+                    try
+                    {
+                        // Eliminar al alumno de la lista
+                        alumnos.RemoveAt(indice);
 
-                    // Eliminar al alumno de la lista
-                    alumnos.RemoveAt(indice);
+                        // Actualizar el archivo JSON
+                        GuardarDatosJSON();
 
-                    // Eliminar el alumno del ListBox
-                    listBoxAlumnos.Items.RemoveAt(indice);
+                        // Eliminar el alumno del ListBox
+                        listBoxAlumnos.Items.RemoveAt(indice);
 
-                    // Actualizar el archivo JSON
-                    GuardarDatosJSON();
+                        MessageBox.Show("El alumno ha sido eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ocurrió un error al intentar eliminar al alumno: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
             else
             {
-                MessageBox.Show("Por favor, selecciona un alumno válido para eliminar.");
+                MessageBox.Show("Por favor, selecciona un alumno válido para eliminar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
+
+        /// <summary>
+        /// Guarda la lista actualizada de alumnos en el archivo JSON.
+        /// </summary>
         private void GuardarDatosJSON()
         {
             try
@@ -212,17 +225,14 @@ namespace BRAM
                 // Serializar la lista de alumnos a formato JSON
                 string jsonData = JsonConvert.SerializeObject(alumnos, Formatting.Indented);
 
-                // Especificar la ruta del archivo JSON (aquí se asume que ya tienes la ruta del archivo original)
-                string rutaArchivo = "ruta_a_tu_archivo.json"; // Sustituir con la ruta real del archivo JSON
-
                 // Guardar el JSON actualizado en el archivo
-                File.WriteAllText(rutaArchivo, jsonData);
+                File.WriteAllText(dirPath, jsonData);
 
-                MessageBox.Show("Alumno eliminado y archivo actualizado correctamente.");
+                MessageBox.Show("Archivo JSON actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al guardar los datos: {ex.Message}");
+                MessageBox.Show($"Error al guardar los datos en el archivo JSON: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
