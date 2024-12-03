@@ -293,10 +293,23 @@ namespace BRAM
                 // Limpiar datos previos
                 alumnos.Clear();
 
-                // Leer y deserializar el archivo JSON
+                // Leer y verificar si el archivo JSON está vacío
                 string jsonData = File.ReadAllText(rutaArchivo);
-                var alumnosData = JsonConvert.DeserializeObject<List<Alumno>>(jsonData);
+                if (string.IsNullOrWhiteSpace(jsonData))
+                {
+                    MessageBox.Show("El archivo JSON está vacío. Por favor, selecciona un archivo válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return; // Salir del método
+                }
 
+                // Deserializar el archivo JSON
+                var alumnosData = JsonConvert.DeserializeObject<List<Alumno>>(jsonData);
+                if (alumnosData == null || alumnosData.Count == 0)
+                {
+                    MessageBox.Show("El archivo JSON no contiene datos válidos. Por favor, selecciona un archivo válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return; // Salir del método
+                }
+
+                // Procesar datos deserializados
                 foreach (var alumnoData in alumnosData)
                 {
                     Alumno alumno = new Alumno
@@ -327,8 +340,9 @@ namespace BRAM
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar el archivo JSON: {ex.Message}");
+                MessageBox.Show($"Error al cargar el archivo JSON: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
     }
 }
