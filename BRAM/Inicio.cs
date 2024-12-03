@@ -322,7 +322,7 @@ namespace BRAM
 
                 // Ocultar este formulario y mostrar el de resultados
                 this.Hide();
-                Resultados resultados = new Resultados(alumnos);
+                Resultados resultados = new Resultados(alumnos, rutaArchivo);
                 resultados.Show();
             }
             catch (Exception ex)

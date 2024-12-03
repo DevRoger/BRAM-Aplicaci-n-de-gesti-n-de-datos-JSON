@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 
 namespace BRAM
@@ -7,10 +9,12 @@ namespace BRAM
     public partial class Resultados : Form
     {
         List<Alumno> alumnos;
-        public Resultados(List<Alumno> alumnos)
+        string dirPath;
+        public Resultados(List<Alumno> alumnos, string dirPath)
         {
             InitializeComponent();
             this.alumnos = alumnos;
+            this.dirPath = dirPath;
 
             // Mostramos los alumnos en la listBoxAlumnos
             foreach (var alumno in alumnos)
@@ -170,6 +174,90 @@ namespace BRAM
         {
             Inicio inicio = new Inicio();
             inicio.Show();
+        }
+
+        private void buttonFichDel_Click(object sender, EventArgs e)
+        {
+            // Verificar si hay un alumno seleccionado en el ListBox
+            int indice = listBoxAlumnos.SelectedIndex;
+            if (indice >= 0 && indice < alumnos.Count) // Excluye la opción "Media"
+            {
+                // Confirmar la eliminación
+                var result = MessageBox.Show("¿Estás seguro de que deseas eliminar este alumno?", "Confirmar eliminación", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    // Obtener el alumno seleccionado
+                    Alumno alumnoSeleccionado = alumnos[indice];
+
+                    // Eliminar al alumno de la lista
+                    alumnos.RemoveAt(indice);
+
+                    // Eliminar el alumno del ListBox
+                    listBoxAlumnos.Items.RemoveAt(indice);
+
+                    // Actualizar el archivo JSON
+                    GuardarDatosJSON();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, selecciona un alumno válido para eliminar.");
+            }
+        }
+
+        private void GuardarDatosJSON()
+        {
+            try
+            {
+                // Serializar la lista de alumnos a formato JSON
+                string jsonData = JsonConvert.SerializeObject(alumnos, Formatting.Indented);
+
+                // Especificar la ruta del archivo JSON (aquí se asume que ya tienes la ruta del archivo original)
+                string rutaArchivo = "ruta_a_tu_archivo.json"; // Sustituir con la ruta real del archivo JSON
+
+                // Guardar el JSON actualizado en el archivo
+                File.WriteAllText(rutaArchivo, jsonData);
+
+                MessageBox.Show("Alumno eliminado y archivo actualizado correctamente.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al guardar los datos: {ex.Message}");
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Confirmar la acción
+            var result = MessageBox.Show("¿Estás seguro de que deseas eliminar todos los datos?\n" + dirPath, "Confirmar eliminación", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    // Vaciar la lista de alumnos
+                    alumnos.Clear();
+
+                    // Actualizar la interfaz de usuario
+                    listBoxAlumnos.Items.Clear();
+                    dataGridViewPartidas.Rows.Clear();
+
+                    // Guardar una lista vacía en el archivo JSON
+                    string jsonData = JsonConvert.SerializeObject(alumnos, Formatting.Indented);
+                    File.WriteAllText(dirPath, jsonData);
+
+                    // Informar al usuario
+                    MessageBox.Show("Todos los datos han sido eliminados correctamente.");
+
+                    Inicio i = new Inicio();
+                    this.Hide();
+                    i.Show();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al eliminar los datos: {ex.Message}");
+                }
+            }
         }
     }
 }

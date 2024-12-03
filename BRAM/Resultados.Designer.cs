@@ -94,6 +94,7 @@
             this.button1.Text = "Eliminar Todo";
             this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // buttonFichDel
             // 
@@ -111,6 +112,7 @@
             this.buttonFichDel.Text = "Eliminar";
             this.buttonFichDel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.buttonFichDel.UseVisualStyleBackColor = false;
+            this.buttonFichDel.Click += new System.EventHandler(this.buttonFichDel_Click);
             // 
             // dataGridViewPartidas
             // 
