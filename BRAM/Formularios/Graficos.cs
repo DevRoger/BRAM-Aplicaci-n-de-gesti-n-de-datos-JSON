@@ -56,7 +56,7 @@ namespace BRAM
 
             serieColumnasMediaDificilErrores.Color = Color.LightSlateGray;
 
-            serieColumnasMediaDificilErrores.Points.AddXY(1, errores_Totales(alumnos, "hard"));
+            serieColumnasMediaDificilErrores.Points.AddXY(1, errores_Totales(alumnos, "DIFÍCIL"));
 
             chartErroresDificil.Series.Add(serieColumnasMediaDificilErrores);
 
@@ -65,7 +65,7 @@ namespace BRAM
 
             serieColumnasMediaDificilTiempo.Color = Color.LightSlateGray;
 
-            serieColumnasMediaDificilTiempo.Points.AddXY(1, tiempo_Totales(alumnos, "hard"));
+            serieColumnasMediaDificilTiempo.Points.AddXY(1, tiempo_Totales(alumnos, "DIFÍCIL"));
 
             chartTiempoDificil.Series.Add(serieColumnasMediaDificilTiempo);
         }
@@ -82,7 +82,7 @@ namespace BRAM
 
             serieColumnasMediaFacilErrores.Color = Color.LightSlateGray;
 
-            serieColumnasMediaFacilErrores.Points.AddXY(1, errores_Totales(alumnos, "easy"));
+            serieColumnasMediaFacilErrores.Points.AddXY(1, errores_Totales(alumnos, "FÁCIL"));
 
             chartErroresFacil.Series.Add(serieColumnasMediaFacilErrores);
 
@@ -91,7 +91,7 @@ namespace BRAM
 
             serieColumnasMediaFacilTiempo.Color = Color.LightSlateGray;
 
-            serieColumnasMediaFacilTiempo.Points.AddXY(1, tiempo_Totales(alumnos, "easy"));
+            serieColumnasMediaFacilTiempo.Points.AddXY(1, tiempo_Totales(alumnos, "FÁCIL"));
 
             chartTiempoFacil.Series.Add(serieColumnasMediaFacilTiempo);
         }
@@ -118,10 +118,10 @@ namespace BRAM
             int count = 0;
             foreach (var partida in alumnoEscogido.Partidas)
             {
-                if (partida.Modo.Equals("hard"))
+                if (partida.Modo.Equals("DIFÍCIL"))
                 {
                     count++;
-                    serieLineaMediaTiempoDificil.Points.AddXY(count, tiempo_Totales(alumnos, "hard"));
+                    serieLineaMediaTiempoDificil.Points.AddXY(count, tiempo_Totales(alumnos, "DIFÍCIL"));
                     serieColumnasTiempoDificil.Points.AddXY(count, partida.TiemposAnimales);
                 }
             }
@@ -152,10 +152,10 @@ namespace BRAM
             int count = 0;
             foreach (var partida in alumnoEscogido.Partidas)
             {
-                if (partida.Modo.Equals("hard"))
+                if (partida.Modo.Equals("DIFÍCIL"))
                 {
                     count++;
-                    serieLineaMediaErroresDificil.Points.AddXY(count, errores_Totales(alumnos, "hard"));
+                    serieLineaMediaErroresDificil.Points.AddXY(count, errores_Totales(alumnos, "DIFÍCIL"));
                     serieColumnasErroresDificil.Points.AddXY(count, partida.Errores);
                 }
             }
@@ -187,10 +187,10 @@ namespace BRAM
             int count = 0;
             foreach (var partida in alumnoEscogido.Partidas)
             {
-                if (partida.Modo.Equals("easy"))
+                if (partida.Modo.Equals("FÁCIL"))
                 {
                     count++;
-                    serieLineaMediaTiempoFacil.Points.AddXY(count, tiempo_Totales(alumnos, "easy"));
+                    serieLineaMediaTiempoFacil.Points.AddXY(count, tiempo_Totales(alumnos, "FÁCIL"));
                     serieColumnasTiempoFacil.Points.AddXY(count, partida.TiemposAnimales);
                 }
             }
@@ -221,10 +221,10 @@ namespace BRAM
             int count = 0;
             foreach (var partida in alumnoEscogido.Partidas)
             {
-                if (partida.Modo.Equals("easy"))
+                if (partida.Modo.Equals("FÁCIL"))
                 {
                     count++;
-                    serieLineaMediaErroresFacil.Points.AddXY(count, errores_Totales(alumnos, "easy"));
+                    serieLineaMediaErroresFacil.Points.AddXY(count, errores_Totales(alumnos, "FÁCIL"));
                     serieColumnasErroresFacil.Points.AddXY(count, partida.Errores);
                 }
             }

@@ -81,8 +81,8 @@ namespace BRAM
             }
             else if (indice >= 0) // Mostrar la media en caso de que se haya seleccionado 'Media' en la listBoxAlumnos
             {
-                dataGridViewPartidas.Rows.Add(1, "MEDIA FÁCIL", DateTime.Now, errores_Totales(alumnos,"easy"), conversor_tiempo(tiempo_Totales(alumnos, "easy")));
-                dataGridViewPartidas.Rows.Add(2, "MEDIA DIFÍCIL", DateTime.Now, errores_Totales(alumnos, "hard"), conversor_tiempo(tiempo_Totales(alumnos, "hard")));
+                dataGridViewPartidas.Rows.Add(1, "MEDIA FÁCIL", DateTime.Now, errores_Totales(alumnos,"FÁCIL"), conversor_tiempo(tiempo_Totales(alumnos, "FÁCIL")));
+                dataGridViewPartidas.Rows.Add(2, "MEDIA DIFÍCIL", DateTime.Now, errores_Totales(alumnos, "DIFÍCIL"), conversor_tiempo(tiempo_Totales(alumnos, "DIFÍCIL")));
             }
         }
 
